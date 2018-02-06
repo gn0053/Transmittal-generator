@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css" >
+        @page {
+            size: 21cm 29.7cm;
+        }
+        th, td {
+            border: 1px solid black;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+            clear: right;
+            border: 0.1px solid black;
+        }
+        th {
+            height: 70px;
+
+        }
+        tr {
+            height: 25px;
+
+        }
+        table{
+            
+             border-collapse: collapse;
+             width: 100%;
+        }
+        .right {
+            float: right;
+            width: 500px;
+            
+        }
+        .left {
+            float: left;
+            
+        }
+        body {
+            
+            margin-left: 100px;
+            margin-right: 50px;
+            
+        }
+        .clear-design {
+            border: none;
+            padding-left: none;
+            padding-right: none;
+            text-align: center;
+        }
+        .header_h2 {
+            padding-left: 300px;
+        }
+        .header_h4 {
+            padding-left: 400px;
+        }
+        
+        </style>
+    </head>
+    
+    <body>
+        <img class="left" src="{{media_path}}/b.png" height="150" width="250"/>
+        <br/>
+        <div>
+            <h2 class = 'header_h2'>International Design Services, Inc.</h2>
+            <h4 class = 'header_h4'>Transmittal Letter</h4>
+        </div>
+        <br/><br/><br/><br/>
+        <div class='right'>
+            <table>
+                {% for item1 in header_set %}
+                    <tr>
+                        <td>{{ item1 }} </td>
+                        <th>{{ header_set[item1] }} </th>
+                    </tr>
+                    
+                {%endfor%}
+            </table>
+        </div>
+        
+        
+        <div class="left ">TO:&nbsp;&nbsp;</div><div class="left ">{{ to }}</div> 
+        
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
+        
+        <div class="left ">Attn:&nbsp;&nbsp;</div><div class="left ">{{ attn }} </div> 
+        
+        <br/><br/><br/>
+        
+        <div>
+            <table class='clear-design '>
+                <tr class='clear-design' >
+                    <td class='clear-design '>We Are Sending You</td>
+                    
+                    {% for item1 in send_type %}
+                        {% if item1 == 'HereWith' %}
+                            <td class='clear-design '>{{ send_type[item1] }} </td>
+                            <td class='clear-design '>{{ item1 }} </td>
+                        {% endif %}
+
+                    {%endfor%}
+                    
+                    {% for item1 in send_type %}
+                        {% if item1 == 'Under Separate Cover Via:' %}
+                            <td class='clear-design '>{{ send_type[item1] }} </td>
+                            <td class='clear-design '>{{ item1 }} </td>
+                        {% endif %}
+                    {%endfor%}
+                    {% for item1 in send_type %}
+                        {% if item1 == 'desc'%}
+                            <td class='clear-design '>{{ send_type[item1] }} </td>
+                        {% endif %}
+                    {%endfor%}
+                </tr>
+            </table>
+            <table>
+                {% set count = [0] %}
+                
+                {% for key,val in sheet_type.iteritems() %}
+                    {% if count[0] == 0 %}
+                        <tr>
+                            <td>{{ val }}</td>
+                            <td>{{ key }}</td>
+                            
+                    {% endif %}
+                    
+                    {% if count[0] <= 3 and count[0] >= 1 %}
+                        <td>{{ val }}</td>
+                        <td>{{ key }}</td>
+                    {% endif %}
+                    
+                    {% if count[0] >= 3 %}
+                        {% set counter = count[0] %}
+                        {% if count.append(count.pop() - counter) %}{% endif %}
+                        </tr>
+                    {% else %}
+                        {% if count.append(count.pop() + 1) %}{% endif %}
+                    {% endif %}
+                {%endfor%}
+                
+            </table>
+            <br/>
+            <table>
+                <tr>
+                    <th>No. Copies</th>
+                    <th>Sheet Number</th>
+                    <th>Rev</th>
+                    <th>Description</th>
+                </tr>
+            
+                {% for item1 in context %}
+                    {% for i,j in context[item1].iteritems() %}
+                            <tr>
+                                
+                                <td> <p> 1 </p> </td>
+                                <td>{{ i }} </td>
+                                <td>{{ j }} </td>
+                                <td>{{ item1 }} </td>
+                            </tr>
+                    
+                    {%endfor%}
+                {%endfor%}
+            </table>
+            <br/>
+            <table>
+                
+                {% set count = [0] %}
+                
+                {% for key,val in purpose.iteritems() %}
+                    {% if count[0] == 0 %}
+                        <tr>
+                            <td>{{ val }}</td>
+                            <td>{{ key }}</td>
+                            
+                    {% endif %}
+                    
+                    {% if count[0] <= 2 and count[0] >= 1 %}
+                        <td>{{ val }}</td>
+                        <td>{{ key }}</td>
+                    {% endif %}
+                    
+                    {% if count[0] >= 2 %}
+                        {% set counter = count[0] %}
+                        {% if count.append(count.pop() - counter) %}{% endif %}
+                        </tr>
+                    {% else %}
+                        {% if count.append(count.pop() + 1) %}{% endif %}
+                    {% endif %}
+                {%endfor%}
+               
+            </table>
+            <p>Remark: {% for i in  end_remarks %}{% if i ==  'Remarks' %}{{ end_remarks[i]  }}</p>{% else %}</p>{% endif %}{% endfor %}
+            <br/>
+            <p>Sincerely Yours,</p>
+            
+            {% for i in  end_remarks %}
+                {% if i ==  'Project Manager' %}
+                    <p>{{ end_remarks[i] }}</p>
+                {% endif %}
+            {% endfor %}
+            <p>Project Manager</p>
+            <p>International Design Services, Inc.</p>
+        </div>
+        
+    </body>
+
+</html>
