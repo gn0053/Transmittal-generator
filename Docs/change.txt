@@ -1,0 +1,38 @@
+4.1 change log:
+Summarry:
+    Changed the flow process from file type dependent to structure dependent flow, changing the complicated process to a more simplier one.
+    
+Detailed Summarry:
+    Options:
+        Removed File type options in favor of a general default settings that would be stored with the application.
+        
+    Job Selection:
+        Instead of choosing from the actual jobs, the choices are now pulled from the defaults. This would add more flexibility.
+        Side Note: The job you choose is irrelevant to what you want to generate as it only contains default data that
+            the application will use.
+        
+    Transmittal Selection:
+        You are now to browse and select the folder(ex. 1161_TRANS#001_SECTOR F_IFA_08-08-16) where the transmittal folder 
+        is located instead of choosing from the dropdown box.
+        
+    Transmittal Calculation Process:
+        Only the reading of files have been changed. Instead of having a file type tied to a description, the description 
+        is now pulled from the name of the folder(ex. Erection--this is a folder that contains all erection drawings
+        and will be the description of the files within it). The files that is directly inside the transmittal folder and
+        does not have a folder of it's own will not be read.
+        
+        Structure sample:
+            1161_TRANS#001_SECTOR F_IFA_08-08-16
+                            |
+                            |__Erection
+                            |         |
+                            |         |__(Erection files)... - - Will be read
+                            |          
+                            |__Shop Drawings
+                            |         |
+                            |         |__(Shop Drawing Files)... - - Will be read
+                            |          
+                            |__(other files that is not in a folder) - - THIS WILL NOT BE READ
+                            
+    
+            
